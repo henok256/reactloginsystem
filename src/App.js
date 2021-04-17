@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import fire from './fire';
 import Login from './login';
+import Hero from './Hero';
+import {usealert} from 'react-alert';
 import './App.css';
 
 const App =()=>{
   const [user, setUser]=useState("");
   const [email, setEmail]=useState("");
-  const[password, setPassword]=useState("");
-  const[emailError, setEmailError]=useState("");
+  const [password, setPassword]=useState("");
+  const [emailError, setEmailError]=useState("");
   const [passwordError, setPasswordError]=useState("");
   const [hasAccount, setHasAccount]= useState(false);
 
@@ -76,31 +78,48 @@ const App =()=>{
 
   };
 
+
   useEffect(()=>{
     authListner();
   }, []);
 
+  const loginMessage = ()=>{
+    return(
+      <p>
+         alert.show("you are successfully login");
+      </p>     
+    );  
+  }
+
+
+
 
   return(
     <div className="App">
-       <Login
-       email={email}
-       setEmail={setEmail}
-       password={password}
-       setPassword={setPassword}
-       handleLogin={handleLogin}
-       handleSignup={handleSignup}
-       hasAccount={hasAccount}
-       setHasAccount={setHasAccount}
+      {user ? (
+        <loginMessage loginMessage={loginMessage}/>,
+        <Hero handleLogout={handleLogout}/>
+        
+      ):(<Login
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        handleLogin={handleLogin}
+        handleSignup={handleSignup}
+        hasAccount={hasAccount}
+        setHasAccount={setHasAccount}
+        
+        emailError={emailError}
+        passwordError={passwordError}
+        
+ 
+        
+        
+        
+        />)}
        
-       emailError={emailError}
-       passwordError={passwordError}
        
-
-       
-       
-       
-       />
     </div>
   );
 }
